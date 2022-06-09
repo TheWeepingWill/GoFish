@@ -16,9 +16,8 @@ class GoFishGame
     end
 
     def deal_cards
-        7.times do players.each do |player|
-           player.take_cards([deck.deal])
-           end
+        7.times do 
+           players.each { |player| player.take_cards([deck.deal]) }
         end
     end
 

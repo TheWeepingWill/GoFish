@@ -27,7 +27,7 @@ describe '#GoFishGame' do
 
     describe 'play_round' do 
 
-       it 'end after ' do 
+       it 'requesting player does not get card if targeted player does not have rank' do 
         player2.take_cards([card1])
         game.play_round(player1, 'Threes', player2)
         expect(player2.hand).to eq [card1]

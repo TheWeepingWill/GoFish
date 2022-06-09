@@ -15,11 +15,11 @@ class GoFishServer
     def accept_user
         user = @server.accept_nonblock
         unnamed_sockets.push(user)
-        send_ouput('What is your username?', user)
+        user.puts 'What is your username?'
     end
 
-    def send_ouput(output, user)
-       user.puts output
+    def send_output(output, user)
+       users.key(user).puts output
     end
 
     def get_user_input(user)
@@ -29,11 +29,14 @@ class GoFishServer
     end
 
     def create_users
+        
         unnamed_sockets.each do |unnamed_socket|
-          sockets.push(unnamed_socket)
-          usernames.push(get_user_input(unnamed_socket))
+          username = get_user_input(unnamed_socket)
+          users.merge!({ unnamed_socket => username })
           unnamed_sockets.delete(unnamed_socket)
+          send_output("Welcome to the game #{username}!", username)
         end
+    
     end
 
   

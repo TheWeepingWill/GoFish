@@ -2,7 +2,9 @@ require_relative '../lib/gofish_server'
 
 describe '#GoFishServer' do 
     let (:server) { GoFishServer.new }
-    it 'allows for users/clients to connect' do 
-       
+    
+    it 'starts' do 
+       expect { server.start }.not_to raise_error
+
     end
 end

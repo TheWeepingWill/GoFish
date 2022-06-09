@@ -5,6 +5,7 @@ class GoFishServer
     def start
         @server = TCPServer.new portnumber
         @unnamed_sockets = []
+        @users = {}
     end
 
     def portnumber
@@ -28,9 +29,10 @@ class GoFishServer
     end
 
     def create_users
-        @users = {}
-        unnamed_sockets.each do |unnamed_user|
-          users.merge!({ unnamed_user => get_user_input(unnamed_user) })
+        unnamed_sockets.each do |unnamed_socket|
+          sockets.push(unnamed_socket)
+          usernames.push(get_user_input(unnamed_socket))
+          unnamed_sockets.delete(unnamed_socket)
         end
     end
 

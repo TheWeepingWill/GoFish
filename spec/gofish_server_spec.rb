@@ -7,39 +7,62 @@ describe '#GoFishServer' do
     before(:each) do
         @users = []
         @server = GoFishServer.new
+        @server.start
       end
     
       after(:each) do
         @server.stop
-        @users.each do |client|
-          client.close
+        @users.each do |user|
+          user.close
         end
       end
 
-      let (:user1) { GoFishUser.new(@server.portnumber)}
-      let (:user2) { GoFishUser.new(@server.portnumber)}
+      let!(:user1) { GoFishUser.new(@server.portnumber)}
+      let!(:user2) { GoFishUser.new(@server.portnumber)}
 
     it 'starts' do 
        expect { @server.start }.not_to raise_error
     end
- describe '#Accepts_users' do 
-    it 'assigns the accepted users to unnamed_sockets' do 
-        @server.start
-        user1
-        @server.accept_user
-        expect(@server.unnamed_sockets.count).to eq 1
-        user2
-        @server.accept_user
-        expect(@server.unnamed_sockets.count).to eq 2
+    describe '#accepts_user' do 
+        it 'assigns the accepted users to unnamed_sockets' do 
+            user1
+            @users.push
+            @server.accept_user
+            expect(@server.unnamed_sockets.count).to eq 1
+            user2
+            @users.push
+            @server.accept_user
+            expect(@server.unnamed_sockets.count).to eq 2
+        end
+
+
+
+        it 'outputs messages to players' do          
+            user1
+            @users.push
+            @server.accept_user
+            expect(user1.recieve_message).to eq 'What is your username?'
+        end
     end
 
-
-
-    it 'outputs messages to players' do 
-        @server.start
-        user1
-        @server.accept_user
-        expect(user1.recieve_message).to eq 'What is your username?'
+    describe '#creates_users' do 
+        it 'add to username' do
+            user1
+            @users.push
+            @server.accept_user
+            expect(@server.unnamed_sockets.count).to eq 1  
+            user.send_message('Guardian')
+            @server.create_users 
+            expect(@server.username).to       
+        end
+        it 'add to sockets' do
+            user1
+            @users.push
+            @server.accept_user
+            expect(@server.unnamed_sockets.count).to eq 1  
+            user.send_message('Guardian')
+            @server.create_users 
+            expect(@server.username).to       
+        end
     end
-end
 end

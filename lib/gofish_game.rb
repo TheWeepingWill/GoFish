@@ -23,7 +23,7 @@ class GoFishGame
     end
 
     def play_round(active_player, requested_cards, targeted_player)
-        if targeted_player.has_cards?(requested_cards) == false
+        if targeted_player.give_cards(requested_cards) == []
            go_fish(active_player)
         end
     end

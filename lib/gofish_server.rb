@@ -1,18 +1,19 @@
 require 'socket'
+require 'pry'
 class GoFishServer
-    attr_accessor  :unnamed_users
+    attr_accessor  :unnamed_sockets, :users
     def start
         @server = TCPServer.new portnumber
-        @unnamed_users = []
+        @unnamed_sockets = []
     end
 
     def portnumber
         3000
     end
 
-    def accept_users
-        user = @server.accept
-        unnamed_users.push(user)
+    def accept_user
+        user = @server.accept_nonblock
+        unnamed_sockets.push(user)
         send_ouput('What is your username?', user)
     end
 
@@ -25,6 +26,15 @@ class GoFishServer
         rescue IO::WaitReadable
         retry
     end
+
+    def create_users
+        @users = {}
+        unnamed_sockets.each do |unnamed_user|
+          users.merge!({ unnamed_user => get_user_input(unnamed_user) })
+        end
+    end
+
+  
 
     def stop
         @server.close if @server

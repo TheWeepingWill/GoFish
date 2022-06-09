@@ -1,12 +1,12 @@
-require_relative '../lib/gofish_server_user'
+require_relative '../lib/gofish_user'
 require_relative '../lib/gofish_server'
 
 describe '#GoFishUser' do 
     let (:server) { GoFishServer.new }
-    let (:player) { GoFishUser.new }
+    let (:user) { GoFishUser.new(server.portnumber) }
    it 'can connect to a server' do 
-       expect(player).to raise_error(Errno::ECONNREFUSED)
+       expect { user }.to raise_error
        server.start
-       expect(player).not_to raise_error(Errno::ECONNREFUSED)
+       expect { user }.not_to raise_error
    end
 end

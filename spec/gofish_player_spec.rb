@@ -24,8 +24,8 @@ describe '#GoFishPlayer' do
     it 'gives cards' do
        player1.take_cards([card1, card2, card3]) 
        cards = player1.give_cards('King')
-       expect(player1.hand).to eq [card3]
-       expect(cards).to eq [card1, card2]
+       expect(player1.hand).to eq [card1, card2, card3]
+       expect(cards).to eq []
     end
 
     it 'returns true or false if a player has cards' do 

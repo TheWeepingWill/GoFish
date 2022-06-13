@@ -14,9 +14,10 @@ class GoFishPlayer
    end
    
    def give_cards(rank)
-    cards =  hand.select {|card| card.rank == rank}
-    hand.delete_if {|card| card.rank == rank}
-    cards
+    []
+    # cards =  hand.select {|card| card.rank == rank}
+    # hand.delete_if {|card| card.rank == rank}
+    # cards
    end
    
    def has_cards?(rank) 

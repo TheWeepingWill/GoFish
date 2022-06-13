@@ -24,7 +24,7 @@ describe '#CardDeck' do
         expect(deck.deal).to eq '2 of Hearts' 
     end
 
-    it 'shuffles the cards', :focus do
+    it 'shuffles the cards' do
         deck1 = CardDeck.new
         deck2 = CardDeck.new
         expect(deck1.cards).to eq(deck2.cards)

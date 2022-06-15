@@ -11,11 +11,11 @@ begin
   game = server.create_game
   if game 
     server.run_go_fish(game)
-    # binding.pry
+     
   end
-rescue => error
-  server.stop 
-  binding.pry
+# rescue => error
+#   server.stop 
+#   binding.pry
 end
 end
 

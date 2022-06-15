@@ -14,6 +14,10 @@ class Card
 
     def ==(other)
         return nil if other == nil
-        other == self.rank + ' of ' + self.suit
+        other.rank == self.rank 
     end 
+
+    def to_s
+       "#{rank} of #{suit}"
+    end
  end

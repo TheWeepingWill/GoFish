@@ -1,5 +1,6 @@
 require_relative 'card'
 class CardDeck
+    STANDARD_DECK_LENGTH = Card::RANKS.count * Card::SUITS.count
      attr_accessor :cards
     def initialize(cards = standard_deck)
         @cards = cards
@@ -10,7 +11,7 @@ class CardDeck
         deck = []
         Card::RANKS.each do |rank|
           Card::SUITS.each do |suit|
-          deck.push(rank + ' of ' + suit)
+          deck.push(Card.new(rank, suit))
           end
         end
         deck 
@@ -22,6 +23,10 @@ class CardDeck
 
     def shuffle
        cards.shuffle!
+    end 
+
+    def card_count 
+        cards.count
     end
     
 end

@@ -1,4 +1,5 @@
 require_relative 'gofish_game'
+require_relative 'game_runner'
 require 'socket'
 require 'pry'
 
@@ -16,8 +17,9 @@ class GoFishServer
 
     def accept_user
         user = @server.accept
+        puts 'User has Joined'
         unnamed_sockets.push(user)
-        user.puts 'What is your username?'
+        user.puts 'Input your Username:'
     end
 
     def send_output(output, user)
@@ -25,9 +27,11 @@ class GoFishServer
     end
 
     def get_user_input(user)
-        user.read_nonblock(1000).chomp
-        rescue IO::WaitReadable
+    #    input = user.read_nonblock(1000).chomp
+       input = user.readline.chomp
+    rescue IO::WaitReadable
         retry
+        puts input
     end
 
     def create_users  
@@ -41,6 +45,9 @@ class GoFishServer
     
     def usernames
        users.keys
+    end
+    def sockets
+        users.values
     end
 
      def create_game
@@ -57,5 +64,6 @@ class GoFishServer
     def run_go_fish(game)
         runner = GameRunner.new(game, usernames, self)
         runner.start
+        runner.run_game
     end
 end

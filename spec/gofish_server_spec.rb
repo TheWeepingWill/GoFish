@@ -45,7 +45,7 @@ describe '#GoFishServer' do
     it 'outputs messages to players' do          
         users.push(user1)
         server.accept_user
-        expect(user1.recieve_message).to eq 'What is your username?'
+        expect(user1.recieve_message).to eq 'Input your Username:'
     end
   end
 
@@ -68,6 +68,7 @@ describe '#GoFishServer' do
       expect(user1.recieve_message).to eq 'Welcome to the game Warp!'
     end
   end
+
   describe '#create_game' do 
     it 'does not create a game with a single user' do 
        users.push(user1) 
@@ -89,7 +90,7 @@ describe '#GoFishServer' do
      it 'tells players their hand' do
       game = create_server_game
       server.run_go_fish(game)
-      expect(user1.recieve_message).to eq "You have been dealt #{game.players.fetch('Johan').hand}!"
+      expect(user1.recieve_message).to eq "Your starting hand is #{game.get_player('Johan').hand}"
      end
   end
 end

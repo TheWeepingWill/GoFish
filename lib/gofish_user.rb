@@ -15,17 +15,15 @@ PORT_NUMBER = 3000
     end
 
     def recieve_message
-        puts socket.gets.chomp.gsub(/\R+/, ' ')
+       message = socket.gets.chomp.gsub(/\R+/, ' ')
+       puts message
+       message
+    rescue
     end
 
-    def script
-      while true 
-       recieve_message
-    #    name = gets
-    #    send_message(name)
-    #    recieve_message 
-    #    recieve_message  
-      end
+    def requires_input?(message)
+        message.end_with?(":")
     end
+    
 end
 
